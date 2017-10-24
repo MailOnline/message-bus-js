@@ -1,6 +1,6 @@
 {
   "name": "message-bus",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Javascript Message Passing Broker",
   "main": "index.js",
   "scripts": {
