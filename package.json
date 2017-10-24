@@ -4,7 +4,8 @@
   "description": "Javascript Message Passing Broker",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require ./test/helpers/mocha.js"
+    "test": "mocha --require ./test/helpers/mocha.js",
+    "test-w": "mocha -w --require ./test/helpers/mocha.js"
   },
   "author": "",
   "license": "ISC",

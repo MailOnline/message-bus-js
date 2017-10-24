@@ -1,38 +1,5 @@
-class Broker {
-  constructor(bus, id) {
-    this.bus = bus
-    this.id = id
-    this.options = {}
-  }
-
-  emit(...args) {
-    return this.bus.emit(this, ...args)
-  }
-
-  on(...args) {
-    return this.bus.on(this, ...args)
-  }
-
-  register(...args) {
-    return this.bus.register(this, ...args)
-  }
-
-  request(...args) {
-    return this.bus.request(this, ...args)
-  }
-
-  intercept(...args) {
-    return this.bus.intercept(...args)
-  }
-
-  invoke(...args) {
-    return this.bus.invoke(this, ...args)
-  }
-
-  invokeAll(...args) {
-    return this.bus.invokeAll(this, ...args)
-  }
-}
+import {Broker} from './Broker'
+import {NoEndpointRegisteredError, TimeoutError} from './Errors'
 
 export class MessageBus {
   constructor() {
@@ -40,7 +7,6 @@ export class MessageBus {
     this.interceptors = []
     this.started = false
     this.dispatcher = fn => fn()
-    this.firedMessages = new Set()
   }
 
   broker(id) {
@@ -224,92 +190,9 @@ export class MessageBus {
     this.started = true
     const broker = this.broker('MessageBus')
     broker.emit('system ready')
-    // global.DM.later.go('mol-adverts')
   }
 
   setDispatcher(dispatcher) {
     this.dispatcher = dispatcher
   }
 }
-
-export class MessageBusError extends Error {
-}
-
-export class TimeoutError extends MessageBusError {
-  constructor(brokers) {
-    super()
-    this.brokers = brokers
-  }
-}
-
-export class NoEndpointRegisteredError extends MessageBusError {
-  constructor(endpoint) {
-    super(JSON.stringify(endpoint))
-    this.endpoint = endpoint
-  }
-}
-
-export class LoggingMessageBus extends MessageBus {
-  emit(sender, ...msg) {
-    console.group(sender.id, 'emit', msg)
-    try {
-      return super.emit(sender, ...msg)
-    } finally {
-      console.groupEnd()
-    }
-  }
-
-  callSubscriber(subscription, args) {
-    console.group('calling', subscription.broker.id)
-    try {
-      return super.callSubscriber(subscription, args)
-    } finally {
-      console.groupEnd()
-    }
-  }
-
-  intercept(...msg) {
-    console.group('intercept', msg)
-    try {
-      return super.intercept(...msg)
-    } finally {
-      console.groupEnd()
-    }
-  }
-
-  invoke(sender, ...msg) {
-    console.group(sender.id, 'invoke', msg)
-    return super.invoke(sender, ...msg).then(() => console.groupEnd())
-  }
-
-  request(sender, ...msg) {
-    console.group(sender.id, 'request', msg)
-    try {
-      return super.request(sender, ...msg)
-    } finally {
-      console.groupEnd()
-    }
-  }
-
-  callInterceptor(interceptor, msg, done) {
-    console.group('callInterceptor', msg)
-    try {
-      return super.callInterceptor(interceptor, msg, done)
-    } finally {
-      console.groupEnd()
-    }
-  }
-
-  subscribe(broker, msgs, callback) {
-    console.log(broker.id, 'subscribed to', msgs)
-    return super.subscribe(broker, msgs, callback)
-  }
-
-  start() {
-    return super.start()
-  }
-}
-
-// let messageBus = ~window.location.search.indexOf('logbroker') ? new LoggingMessageBus() : new MessageBus()
-//
-// export default messageBus

@@ -1,4 +1,5 @@
-import { MessageBus, LoggingMessageBus } from '../src/MessageBus'
+import { MessageBus } from '../src/MessageBus'
+import { LoggingMessageBus } from '../src/LoggingMessageBus'
 import { expect } from './helpers/chai'
 import sinon from 'sinon'
 
