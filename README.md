@@ -1,0 +1,11 @@
+## MessageBus
+
+A message passing framework for JavaScript.
+
+### Differences from an Event Driven approach
+
+Functionally almost none. 
+
+But in event-driven systems, the "source" of the event is an important part of it. For messages, not so.
+
+Therefore if the receipts needs to know who the source is, add that to the message payload.
