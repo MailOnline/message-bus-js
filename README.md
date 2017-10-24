@@ -1,4 +1,5 @@
 ## MessageBus
+[![Build Status](https://travis-ci.org/MailOnline/message-bus-js.svg?branch=master)](https://travis-ci.org/MailOnline/message-bus-js)
 
 A message passing framework for JavaScript.
 
