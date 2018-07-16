@@ -1,5 +1,5 @@
 ## MessageBus
-[![Build Status](https://travis-ci.org/MailOnline/message-bus-js.svg?branch=master)](https://travis-ci.org/MailOnline/message-bus-js)
+[![Build Status](https://travis-ci.org/MailOnline/message-bus-js.svg?branch=master)](https://travis-ci.org/MailOnline/message-bus-js) [![Greenkeeper badge](https://badges.greenkeeper.io/MailOnline/message-bus-js.svg)](https://greenkeeper.io/)
 
 A message passing framework for JavaScript.
 
